@@ -1,6 +1,6 @@
 public class Ticket {
     private String ticketId ;
-    private int seatNumber = 100;
+    private int seatNumber;
     private String flightId;
     private String origin;
     private String destination;
@@ -22,8 +22,8 @@ public class Ticket {
         return seatNumber;
     }
 
-    public void setSeatNumber() {////////problem
-        seatNumber --;
+    public void setSeatNumber(int z) {
+        seatNumber  = 100 + z ;
     }
 
     public String getFlightId() {

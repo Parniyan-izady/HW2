@@ -107,6 +107,7 @@ public class Passenger{
                     flights.flight[i].tickets.ticket[z].setTime(flights.flight[i].getTime());
                     flights.flight[i].tickets.ticket[z].setPrice(flights.flight[i].getPrice());
                     flights.flight[i].tickets.ticket[z].setUsername(passengerUsername);
+                    flights.flight[i].tickets.ticket[z].setSeatNumber(z);
                     flights.flight[i].decreaseRemainedSeats();
                     System.out.println("Your Ticket Has Been Reserved! ");
                     break;
@@ -131,7 +132,7 @@ public class Passenger{
         String ticketId = scanner.next().toLowerCase().trim();
         for (int z = 0; z < 100; z++) {
             if (!(flights.flight[i].tickets.ticket[z] == null) && (flights.flight[i].tickets.ticket[z].getFlightId().equals(ticketId))) {
-                flights.flight[i].tickets.ticket[z].setFlightId(null);
+                flights.flight[i].tickets.ticket[z] = new Ticket();
                 flights.flight[i].increaseRemainedSeats();
                 charge = charge + flightPrice;
                 System.out.println("Your ticket Has been canceled! " );
@@ -173,7 +174,9 @@ public class Passenger{
                     for (int p = 0; p < 12 - flights.flight[i].getDate().length(); p++)
                         System.out.print(" ");
                     System.out.print("|");
-                    System.out.print(flights.flight[i].getRemainedSeats());
+                    System.out.print(flights.flight[i].tickets.ticket[z].getSeatNumber());
+                    for (int p = 0 ; p < 11 - flights.flight[i].tickets.ticket[z].getSeatNumber(); p++)
+                        System.out.println(" ");
                     System.out.print(flights.flight[i].getTime());
                     for (int p = 0; p < 8 - flights.flight[i].getTime().length(); p++)
                         System.out.print(" ");
