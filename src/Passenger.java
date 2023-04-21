@@ -173,6 +173,7 @@ public class Passenger{
                     for (int p = 0; p < 12 - flights.flight[i].getDate().length(); p++)
                         System.out.print(" ");
                     System.out.print("|");
+                    System.out.print(flights.flight[i].getRemainedSeats());
                     System.out.print(flights.flight[i].getTime());
                     for (int p = 0; p < 8 - flights.flight[i].getTime().length(); p++)
                         System.out.print(" ");

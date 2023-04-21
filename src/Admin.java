@@ -133,7 +133,7 @@ public class Admin {
             System.out.println("This flight id doesn't exist!");
     }
     public void flightSchedules(){
-        System.out.println("|Flight Id   |Origin      |Destination |Date        |Time    |Price     ");
+        System.out.println("|Flight Id   |Origin      |Destination |Date        |Seats  |Time    |Price     ");
         showFlights();
     }
     public void showFlights()
@@ -158,6 +158,8 @@ public class Admin {
                 System.out.print(flights.flight[i].getDate());
                 for(int p = 0; p < 12 - flights.flight[i].getDate().length() ; p++)
                     System.out.print(" ");
+                System.out.print("|");
+                System.out.print(flights.flight[i].getRemainedSeats() + "    ");
                 System.out.print("|");
                 System.out.print(flights.flight[i].getTime());
                 for(int p = 0; p < 8 - flights.flight[i].getTime().length() ; p++)
