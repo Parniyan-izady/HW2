@@ -65,8 +65,7 @@ public class Menus {
                 }
             }
             else if(a == 2) {
-                int p = 20;
-                admin.adminSignIn(p);
+                admin.adminSignIn();
                 int x = 10 ;
                 while (x != 0)
                 {

@@ -67,7 +67,7 @@ public class Flight {
         remainedSeats ++;
     }
     public void decreaseRemainedSeats() {
-        remainedSeats ++;
+        remainedSeats --;
     }
 }
 

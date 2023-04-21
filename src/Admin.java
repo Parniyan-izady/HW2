@@ -20,7 +20,7 @@ public class Admin {
         return adminPassword;
     }
 
-    public int adminSignIn(int p) {
+    public void adminSignIn() {
         while (true) {
             System.out.println("Please enter your username ");
             System.out.print(">>");
@@ -33,7 +33,6 @@ public class Admin {
                     System.out.print(">>");
                     String testPassword = scanner.next().toLowerCase().trim();
                     if (testPassword.equals(getAdminPassword())) {
-                        p = 10;
                         break;
                     }
                     System.out.println("Entered password doesn't match!");
@@ -41,7 +40,6 @@ public class Admin {
                 break;
             }
         }
-        return p;
     }
     public void addFlight(){
         for(int i=0;i<100;i++)
@@ -120,7 +118,8 @@ public class Admin {
         for (i = 0; i < 100; i++) {
             if( !(flights.flight[i] == null ) && flightId.equals(flights.flight[i].getFlightId()))
             {
-                flights.flight[i] = new Flight();
+                flights.flight[i] = null ;
+                System.out.println("Flight Has Been Removed!");
                 break;
             }
         }
@@ -135,7 +134,7 @@ public class Admin {
     {
         for(int i=0 ; i<100 ;i++)
         {
-            if(!(flights.flight[i] == null))
+            if(!(flights.flight[i]  == null ))
             {
                 System.out.print("|");
                 System.out.print(flights.flight[i].getFlightId());
