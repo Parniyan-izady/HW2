@@ -120,12 +120,7 @@ public class Admin {
         for (i = 0; i < 100; i++) {
             if( !(flights.flight[i] == null ) && flightId.equals(flights.flight[i].getFlightId()))
             {
-                flights.flight[i].setFlightId(" ");
-                flights.flight[i].setOrigin(" ");
-                flights.flight[i].setDestination(" ");
-                flights.flight[i].setDate(" ");
-                flights.flight[i].setTime(" ");
-                flights.flight[i].setPrice(0);
+                flights.flight[i] = new Flight();
                 break;
             }
         }
