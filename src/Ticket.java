@@ -9,6 +9,7 @@ public class Ticket {
     private String username;
     private double price;
 
+
     public String getTicketId() {
         return ticketId;
     }

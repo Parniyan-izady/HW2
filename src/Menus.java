@@ -1,11 +1,15 @@
 
 import java.util.Scanner;
 
-public class Menus {
+public class Menus{
     Scanner scanner = new Scanner(System.in);
     Flights flights = new Flights();
+
     Passengers passengers = new Passengers(flights);
-    Admin admin = new Admin(flights);
+
+    Admin admin = new Admin(flights,passengers);
+
+
     public void menu()
     {
         while (true)
@@ -42,7 +46,8 @@ public class Menus {
                                 passengers.passenger[y].changePassengerPassword();
                             }
                             else if(s == 2){
-                                passengers.passenger[y].searchFlightTicket();
+                                Search search = new Search(flights);
+                                search.searchFlightTicket();
                             }
                             else if(s == 3){
                                 passengers.passenger[y].bookingTicket();

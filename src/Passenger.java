@@ -11,6 +11,14 @@ public class Passenger{
         this.flights = flights ;
     }
 
+    public double getCharge() {
+        return charge;
+    }
+
+    public void setCharge(double charge) {
+        this.charge = charge;
+    }
+
     public String getPassengersPassword() {
         return passengerPassword;
     }
@@ -32,55 +40,6 @@ public class Passenger{
         System.out.print(">>");
         passengerPassword = scanner.next().toLowerCase().trim();
     }
-
-    public void searchFlightTicket() {
-        System.out.println("Desired origin?");
-        System.out.print(">>");
-        String testOrigin = scanner.next().toLowerCase().trim();
-        System.out.println("Desired destination?");
-        System.out.print(">>");
-        String testDestination = scanner.next().toLowerCase().trim();
-        System.out.println("Desired date?");
-        System.out.print(">>");
-        String testDate = scanner.next().toLowerCase().trim();
-        int p = 0 ;
-        for (int i = 0; i < 100; i++) {
-            if (!(flights.flight[i] == null) && flights.flight[i].getOrigin().equals(testOrigin) && flights.flight[i].getDestination().equals(testDestination) && flights.flight[i].getDate().equals(testDate)) {
-                System.out.println("Flight Id   |Origin      |Destination |Date        |Time    |seat |Price  ");
-                showSearchedTicket(i);
-                p = 4;
-            }
-        }
-        if( p == 0)
-        {System.out.println("Sorry! We couldn't Find Any flights !");}
-    }
-    public void showSearchedTicket(int i){
-        System.out.print(flights.flight[i].getFlightId());
-        for (int p = 0; p < 12 - flights.flight[i].getFlightId().length(); p++)
-            System.out.print(" ");
-        System.out.print("|");
-        System.out.print(flights.flight[i].getOrigin());
-        for (int p = 0; p < 12 - flights.flight[i].getOrigin().length(); p++)
-            System.out.print(" ");
-        System.out.print("|");
-        System.out.print(flights.flight[i].getDestination());
-        for (int p = 0; p < 12 - flights.flight[i].getDestination().length(); p++)
-            System.out.print(" ");
-        System.out.print("|");
-        System.out.print(flights.flight[i].getDate());
-        for (int p = 0; p < 12 - flights.flight[i].getDate().length(); p++)
-            System.out.print(" ");
-        System.out.print("|");
-        System.out.print(flights.flight[i].getTime());
-        for (int p = 0; p < 8 - flights.flight[i].getTime().length(); p++)
-            System.out.print(" ");
-        System.out.print("|");
-        System.out.print(flights.flight[i].getRemainedSeats() + "  ");
-        if(flights.flight[i].getRemainedSeats() < 100)
-            System.out.print(" ");
-        System.out.print("|");
-        System.out.println(flights.flight[i].getPrice());
-    }
     public void bookingTicket () {
         System.out.println("Please enter desired flight id ");
         System.out.print(">>");
@@ -89,7 +48,7 @@ public class Passenger{
             if (!(flights.flight[i] == null) && flightId.equals(flights.flight[i].getFlightId())) {
                 addBookedFlight(i);
                 break;
-            } else if (i == 99)
+            } else if (i == 100)
                 System.out.println("Sorry! We couldn't Find Any flights !");
         }
     }
@@ -108,6 +67,7 @@ public class Passenger{
                     flights.flight[i].tickets.ticket[z].setPrice(flights.flight[i].getPrice());
                     flights.flight[i].tickets.ticket[z].setUsername(passengerUsername);
                     flights.flight[i].tickets.ticket[z].setSeatNumber(z);
+                    flights.flight[i].tickets.ticket[z].setTicketId();
                     flights.flight[i].decreaseRemainedSeats();
                     System.out.println("Your Ticket Has Been Reserved! ");
                     break;
@@ -120,18 +80,26 @@ public class Passenger{
     }
 
     public void ticketCancellation () {
+        System.out.println("Please Enter your Flight ID");
+        System.out.print(">>");
         String flightId = scanner.next().toLowerCase().trim();
-        for (int i = 0; i < 100; i++) {
+        int i;
+        for (i = 0; i < 100; i++) {
             if (!(flights.flight[i] == null) && flightId.equals(flights.flight[i].getFlightId())) {
                 removeBookedFlight(i, flights.flight[i].getPrice());
                 break;
             }
         }
+        if(i == 100)
+            System.out.println("Sorry ! This Flight Id doesn't exist");
     }
     public void removeBookedFlight ( int i, double flightPrice){
+        System.out.println("Please Enter your Ticket ID");
+        System.out.print(">>");
         String ticketId = scanner.next().toLowerCase().trim();
-        for (int z = 0; z < 100; z++) {
-            if (!(flights.flight[i].tickets.ticket[z] == null) && (flights.flight[i].tickets.ticket[z].getFlightId().equals(ticketId))) {
+        int z;
+        for (z = 0; z < 100; z++) {
+            if (!(flights.flight[i].tickets.ticket[z] == null) && (flights.flight[i].tickets.ticket[z].getTicketId().equals(ticketId))) {
                 flights.flight[i].tickets.ticket[z] = null;
                 flights.flight[i].increaseRemainedSeats();
                 charge = charge + flightPrice;
@@ -140,6 +108,8 @@ public class Passenger{
                 break;
             }
         }
+        if(z == 100 )
+            System.out.println("Sorry ! This Flight Id doesn't exist");
     }
 
     public void addCharge () {
@@ -150,12 +120,16 @@ public class Passenger{
         System.out.println("Your charge is " + charge + "!");
     }
     public void showBookedTickets () {
-        System.out.println("Flight Id   |Username      |Origin      |Destination |Date        |Seat Number|Time    |Price  ");
         for (int i = 0; i < 100; i++) {
             for (int z = 0; z < 100; z++) {
                 if (!(flights.flight[i] == null) && !(flights.flight[i].tickets.ticket[z] == null)) {
+                    System.out.println("Flight Id   |Ticket Id   |Username      |Origin      |Destination |Date        |Seat Number|Time    |Price  ");
                     System.out.print(flights.flight[i].getFlightId());
                     for (int p = 0; p < 12 - flights.flight[i].getFlightId().length(); p++)
+                        System.out.print(" ");
+                    System.out.print("|");
+                    System.out.print(flights.flight[i].tickets.ticket[z].getTicketId());
+                    for (int p = 0; p < 12 - flights.flight[i].tickets.ticket[z].getTicketId().length(); p++)
                         System.out.print(" ");
                     System.out.print("|");
                     System.out.print(passengerUsername);
